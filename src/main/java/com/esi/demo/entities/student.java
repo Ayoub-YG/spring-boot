@@ -24,6 +24,9 @@ public class student {
     @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
 
+    @Embedded  // ✅ This tells Hibernate to embed the `Adresse` object inside `Student`
+    private Adresse adresse;
+
     @ManyToOne
     @JoinColumn(name = "formation")  // Foreign key for formation
     private formation formation;

@@ -1,9 +1,6 @@
 package com.esi.demo;
 
-import com.esi.demo.entities.Grade;
-import com.esi.demo.entities.formation;
-import com.esi.demo.entities.student;
-import com.esi.demo.entities.teacher;
+import com.esi.demo.entities.*;
 import com.esi.demo.repositories.formationInterface;
 import com.esi.demo.repositories.studentInterface;
 import com.esi.demo.repositories.teacherInterface;
@@ -40,20 +37,21 @@ public class DemoApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-       // formation format = new formation();
-       // format.setNomFormation("AI");
-       // formationRepo.save(format);  // ✅ Save it before using it
+        formation format = new formation();
+        format.setNomFormation("AI");
+        formationRepo.save(format);  // ✅ Save it before using it
+
+        Adresse adr = new Adresse("sba",1,"44","dd");
+
+        student student1 = new student(null, "djalil", new Date(2000 - 1900, 11, 3),adr, format, null); // Correct Date
+        studentRepo.save(student1);  // ✅ Save student separately
 
 
-       // student student1 = new student(null, "djalil", new Date(2000 - 1900, 11, 3), format, null); // Correct Date
-       // studentRepo.save(student1);  // ✅ Save student separately
+        teacher teacher1 = new teacher(null, "mohamed", Grade.MAA, Arrays.asList(student1));
+        student1.setTeachers(Arrays.asList(teacher1));
+        teacherRepo.save(teacher1);  // ✅ Save teacher separately
 
 
-       // teacher teacher1 = new teacher(null, "mohamed", Grade.MAA, Arrays.asList(student1));
-       // student1.setTeachers(Arrays.asList(teacher1));
-      //  teacherRepo.save(teacher1);  // ✅ Save teacher separately
-
-
-       // studentRepo.save(student1);
+        studentRepo.save(student1);
     }
 }

@@ -1,6 +1,8 @@
 package com.esi.demo.controlleurs;
 
+import com.esi.demo.entities.formation;
 import com.esi.demo.entities.student;
+import com.esi.demo.entities.teacher;
 import com.esi.demo.repositories.formationInterface;
 import com.esi.demo.repositories.studentInterface;
 import com.esi.demo.repositories.teacherInterface;
@@ -31,9 +33,23 @@ public class studentcontroller {
         return studentrepository.findAll();  // ✅ Correct return type
     }
 
+    @GetMapping(path = "/teachers")
+    public List<teacher> getTeachers() {
+        return teacherrepo.findAll();
+    }
+
+    @GetMapping(path = "/formations")
+    public List<formation> getFormations() {
+        return formationrepo.findAll();
+    }
+
     @GetMapping(path = "/student/{id}")
     public student getStudentID(@PathVariable("id") Long id) {
-        return studentrepository.findById(id).get();
+        student std = studentrepository.findById(id).get();
+        if (std != null) {
+            return studentrepository.findById(id).get();
+        }
+        return null;
     }
 
     @PostMapping("studentt")
